@@ -1,0 +1,11 @@
+/* Create a CSS file named RootLayout.module.css or similar */
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  width: 100%;
+  flex-grow: 1; /* Ensures main takes up available space */
+}

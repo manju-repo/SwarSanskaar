@@ -1,0 +1,44 @@
+.item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 8px;
+}
+
+.desc {
+  flex: 1;
+  width: 200px; /* Fixed width for the name */
+  font-size: 18px;
+  color: #8b008b;
+  text-align: left;
+  margin-left: 20px;
+  margin-right: 50px; /* Space between name and buttons */
+  text-decoration: none;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 50px;
+}
+
+.trashIcon,
+.updateFees {
+  width: 120px; /* Fixed width for buttons */
+  padding: 6px;
+  border: 1px solid #8b008b;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  color: #8b008b;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+}
+
+.trashIcon:hover,
+.updateFees:hover {
+  background-color: #8b008b;
+  color: white;
+}

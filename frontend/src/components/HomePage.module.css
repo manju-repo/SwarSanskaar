@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+.centeredContainer {
+  display: flex;
+  justify-content: center;  /* Horizontally center */
+  align-items: center;      /* Vertically center */
+  height: 100%;            /* Full height of the viewport */
+}
+
+img {
+  max-width: 100%;          /* Optional: adjust image size */
+  height: auto;
+}

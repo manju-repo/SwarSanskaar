@@ -1,0 +1,108 @@
+.container {
+  display: flex;
+  justify-content: center; /* horizontally center */
+  align-items: center; /* vertically center */
+  width:100%;
+  margin: 20px auto 20px; /* Adjust the top margin to be greater than the height of the main menu */
+  color:black;
+  text-align:center;
+  overflow:auto;
+}
+
+.container1 {
+  display: flex;
+  justify-content: left; /* horizontally center */
+  align-items: center; /* vertically center */
+  width:100%;
+  margin: 0px auto 20px; /* Adjust the top margin to be greater than the height of the main menu */
+  color:black;
+  text-align:center;
+  overflow:auto;
+}
+
+
+
+.form {
+  width: 50%;
+  margin: 0 auto ;
+  text-align:center;
+  color:black;
+}
+
+.form h3{
+    margin:2rem;
+}
+
+.form .control{
+ display:flex;
+ width:100%;
+}
+
+.form label{
+    text-align:left;
+    width:15rem;
+    color:#850e57;
+}
+
+
+.form input,
+.form textarea {
+  font: inherit;
+  padding: 0.25rem;
+  margin-top: 0.25rem;
+  width:25rem;
+  background-color: white;
+  color: black;
+  height:30px;
+  width:500px;
+  border:2px solid grey;
+  }
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.button {
+    height:30px;
+    width:80px;
+  background-color: light-grey;
+  color: #850e57;
+  font-size: 16px; /* Font size */
+  border: 2px solid grey; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Cursor style */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.button:hover {
+  background-color: #850e57; /* Darker green background on hover */
+  color:white;
+}
+
+input[type="file"] {
+  display: none; /* Hide the default file input */
+}
+
+.custom_file_upload {
+  display: inline-block;
+  cursor: pointer;
+  background-color: light-grey;
+  max-width:120px;
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
+  border: 2px solid grey;
+}
+
+.custom_file_upload:hover {
+  background-color: #850e57;
+  color: white;
+  }
+
+
+
+

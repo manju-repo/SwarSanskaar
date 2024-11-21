@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fce4e503-7df4-4174-b6ea-7945e668ff63" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/config/config.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/data/Branch.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/data/Payment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/data/Student.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/Branch.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/Payment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/Student.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/routes/Branches.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/routes/Payment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/routes/Student.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/services/emailService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/services/smsService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/util/errors.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/util/validation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Branches.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Drawer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Drawer.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/FeesPaymentForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/HomePage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/HomePage.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/RegistrationForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/RegistrationForm.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/StudentList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/StudentList.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/navigation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/root.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/root.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Branch.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/BranchStudents.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Students.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/branch.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/swarsanskaar.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/logo512.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/logo512.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/robots.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/navigation.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/logo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reportWebVitals.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/reportWebVitals.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setupTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/setupTests.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2nWKlFfz50jcxT1oia8l381ftE1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Arnav/IdeaProjects/swarsanskaar/backend&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Arnav\IdeaProjects\swarsanskaar\backend" />
+      <recent name="C:\Users\Arnav\IdeaProjects\swarsanskaar\frontend\src\components" />
+      <recent name="C:\Users\Arnav\IdeaProjects\swarsanskaar\src\frontend" />
+      <recent name="C:\Users\Arnav\IdeaProjects\swarsanskaar\src" />
+      <recent name="C:\Users\Arnav\IdeaProjects\swarsanskaar\backend\data" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Arnav\IdeaProjects\swarsanskaar\frontend" />
+      <recent name="C:\Users\Arnav\IdeaProjects\swarsanskaar\src" />
+      <recent name="C:\Users\Arnav\IdeaProjects\swarsanskaar\src\frontend" />
+      <recent name="C:\Users\Arnav\IdeaProjects\swarsanskaar\backend" />
+      <recent name="C:\Users\Arnav\IdeaProjects\swarsanskaar\public" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fce4e503-7df4-4174-b6ea-7945e668ff63" name="Changes" comment="" />
+      <created>1729083540710</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729083540710</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
