@@ -27,12 +27,12 @@ const FeesPaymentForm=()=>{
     const [paymentDate, setPaymentDate]=useState(null);
     const [refresh, setRefresh] = useState(false); // State to trigger re-fetch and re-render component
     const [waivingFees, setWaivingFees] =useState(false);
-
-  const months = [
+    const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-
+     ];
+    const currentMonth = new Date().getMonth() + 1;
+    const startMonth = ((currentMonth - 3 + 12) % 12) || 12;
     const [formData, setFormData] = useState({
           name: '',
           email: '',
@@ -51,7 +51,9 @@ const {
   } = useForm();
 
     const { studentId } = useParams();
+    console.log(studentId);
     const location = useLocation();
+    const isReminder = location.pathname.includes('/feesPayment/reminder');
     const navigate= useNavigate();
 
     useEffect(() => {
@@ -74,7 +76,7 @@ const {
 
       const fetchBranches = async () => {
       try {
-        const response = await fetch('http://localhost:5000/branches'); // Adjust your endpoint
+        const response = await fetch('http://localhost:5000/branches');
         const data = await response.json();
         console.log(data.branches);
         setBranches(data.branches); // Assuming data is an array of branch names
@@ -158,31 +160,49 @@ const {
 
   const submitHandler =async (data) => {
       console.log(data);
-
-    data.studentId = studentId || selectedStudent;
-    data.monthNumber = monthNumber;
-    data.mode=selectedMode;
-    data.paymentDate=paymentDate;
-    console.log(data);
     let response;
-      response= await fetch(`http://localhost:5000/payment/fees`, {
-      method: 'PUT',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
-     });
+    data.studentId = studentId || selectedStudent;
+    if(isReminder){
+        const response= await fetch(`http://localhost:5000/students/reminder/${data.studentId}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+       });
 
-      console.log(response);
-      alert('Fees Updated');
-      navigate('/students');
+        console.log(response);
+        const resp=await response.json();
+        alert(resp.message);
+
+        navigate('/students');
+    }
+    else{
+        data.monthNumber = monthNumber;
+        data.mode=selectedMode;
+        data.paymentDate=paymentDate;
+
+        console.log(data);
+          response= await fetch(`http://localhost:5000/payment/fees`, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+         });
+
+          console.log(response);
+          if(response.ok)
+            alert('Fees Updated');
+          navigate(-1);
+     }
   };
 
 
    const resetHandler=(event)=>{
     if(!selectedStudent && !studentId)
-        navigate(`/homepage`);
+        //navigate(`/homepage`);
+        navigate(-1);
     else{
         setSelectedStudent(null);
-        navigate(`/feesPayment`);
+        //navigate(`/feesPayment`);
+        navigate(-1);
     }
    };
 
@@ -196,14 +216,15 @@ const {
          event.preventDefault();
          setSelectedStudent(event.target.value); // Set selected studentId
          //if(selectedStudent)
-            navigate(`/feesPayment/${event.target.value}`);
+         if(isReminder)
+            navigate(`/feesPayment/reminder`);
+        else
+        navigate(`/feesPayment/${event.target.value}`);
     };
 
     const setMonthData = (monthIndex) => {
         const paymentData = formData.payments[monthIndex - 1]; // Adjusting for zero-based index
 
-        //setMonthNumber(monthIndex);
-        //setSelectedMonth(paymentData?.month || ""); // Replace with actual month if available
         setAmountDue(paymentData?.amount_due || 0);
         setAmountPaid(paymentData?.amount_paid || 0);
     };
@@ -237,7 +258,7 @@ const {
         });
         console.log(response);
         if(response.ok){
-            alert(`Waived off fees for ${selectedMonth}`);
+            //alert(`Waived off fees for ${selectedMonth}`);
             setRefresh(true);
         }
     };
@@ -246,7 +267,7 @@ const {
       try{
         const new_reminder_enabled=!formData.reminder_enabled;
         const student_id=studentId || selectedStudent;
-        const response= await fetch(`http://localhost:5000/students/reminder/${student_id}`, {
+        const response= await fetch(`http://localhost:5000/students/togReminder/${student_id}`, {
           method: 'PUT',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({reminder_enabled:new_reminder_enabled})
@@ -260,24 +281,44 @@ const {
       }
     }
 
-   return (
+   return (<>
      <div className={classes.container}>
 
      <form onSubmit={handleSubmit(submitHandler)} className={classes.form} style={{ border:'2px solid grey'}}>
      <>
 
-     {(studentId || selectedStudent) ? (<>
+     {(studentId || selectedStudent) ? (
+        isReminder?(<>
+            <div style={{marginTop:'100px',width:'100%', display:'flex'}}>
+                <label htmlFor="notificationMsg" style={{display:'block',minWidth:'200px',marginLeft:'50px',justifyContent:'center'}}> Message</label>
+                <textarea  style={{overflowY:'auto'}} id="notificationMsg" type="text" name="notificationMsg" rows="4"
+                {...register("notificationMsg", {
+                      required: "Enter the Message",
+                    })}
+                />
+                {errors.notificationMsg && <p className={classes.errorMsg}>{errors.notificationMsg.message}</p>}
+            </div>
+            <div style={{marginTop:'100px', marginBottom:'50px'}}>
+             <button style={{ marginRight:'10px'}} className={classes.button}  onClick={resetHandler}>
+               Cancel
+             </button>
+             <button className={classes.button} type="submit" >
+               Send
+             </button>
 
+            </div>
+        </>):(<>
 
         <div className={classes.control} style={{ display: "flex", justifyContent: "space-between",  border:'2px solid grey'}}>
-            <div style={{width:'25%', textAlign:'left', marginTop:'20px', marginLeft:'25px'}} >
+            <div style={{width:'30%', textAlign:'left', marginTop:'20px', marginLeft:'20px'}} >
                 <div style={{textAlign:'left'}}>Email:  {formData.email}</div>
                 <div style={{textAlign:'left'}}>Phone:  {formData.phone}</div>
                 <div style={{textAlign:'left'}}>Monthly Fees: Rs. {formData.monthly_fees}</div>
+
             </div>
             <div style={{width:'30%',textAlign:'left',fontSize:'20px',fontWeight:'bold'}}>
-                       <p>{formData.name}</p>
-                     </div>
+                 <p>{formData.name}</p>
+            </div>
             <div style={{textAlign: "right", marginRight:'25px'}} >
                 <div  style={{textAlign:'left'}}>Branch:    {formData.branch}</div>
                 <pre style={{ fontSize: "16px", fontFamily: "inherit",  textAlign:'left' }}>Address:   {formData.address?.join('\n')}</pre>
@@ -337,10 +378,17 @@ const {
               </div>
               <div style={{marginLeft:'100px', marginRight:'70px', marginBottom:'50px', textAlign:'left'}}>
               <label  style={{minWidth:'150px', display: 'inline-block'}} htmlFor="amount">Amount:</label>
-              Rs <input style={{width:'50px',height:'15px'}} type="text" id="amount"
-              {...register("amount", { required: true })}
+              Rs <input style={{width:'50px',height:'15px', textAlign:'right'}} type="text" id="amount"
+              {...register("amount", { required: "Enter Amount",
+               validate: {
+                       notZero: (value) => Number(value) > 0 || "Amount must be greater than zero",
+                       isNumber: (value) => !isNaN(value) || "Amount must be a valid number",
+                       lessThanOrEqualToAmountDue: (value) =>
+                            Number(value) <= amountDue || `Amount cannot exceed Rs. ${amountDue}`,
+                     }
+               })}
               name="amount"/>
-            {!waivingFees && errors.amount && <p className="errorMsg">Enter Amount</p>}
+            {!waivingFees && errors.amount && <p className="errorMsg">{errors.amount.message}</p>}
 
               </div>
               <div style={{marginLeft:'100px', marginRight:'70px', marginBottom:'50px', textAlign:'left'}}>
@@ -366,9 +414,42 @@ const {
         </div>
         </>
         ):
-        <div>No Dues for this month</div>:<div>Please select the month for payment</div>
+        <div>No Dues for this month</div>:
+//Month not selected show transactions of previous 3 months
+        <div style={{marginLeft:'100px',width:'100%'}}>
+        <div style={{ display: 'flex', marginBottom:'10px',fontWeight:'bold'}}>
+            <div style={{marginRight:'40px', minWidth:'80px' }}>Month</div>
+            <div style={{marginRight:'50px', minWidth:'55px'}}>Amount Due</div>
+            <div style={{marginRight:'50px', minWidth:'55px'}}>Amount Paid</div>
+            <div style={{marginRight:'50px', minWidth:'55px'}}>Status</div></div>
+             {formData?.payments
+                ?.filter(payment => {
+                  // Include payments for the last three months, wrapping around the year if necessary
+                  return (
+                    (payment.month > startMonth && payment.month <= currentMonth) ||
+                    (startMonth > currentMonth && (payment.month >= startMonth || payment.month <= currentMonth))
+                  );
+                })
+                ?.map(payment => (
+                  <div style={{ display: 'flex', color:(payment.amount_paid!==payment.amount_due && payment.amount_due!==0) ? 'red':'black' }}>
+                    <div style={{ marginRight: '40px',minWidth:'80px', textAlign:'left' }}>{months[payment.month - 1]}</div>
+                    <span>Rs.</span>
+                    <div style={{ marginRight: '70px',minWidth:'55px', textAlign:'right' }}>{payment.amount_due}/-</div>
+                    <span>Rs.</span>
+                    <div style={{ marginRight: '70px',minWidth:'55px', textAlign:'right' }}>{payment.amount_paid}/-</div>
+                   { /*payment.amount_paid-payment.amount_due===payment.amount_paid?
+                   payment.amount_paid===0?
+                    <div style={{marginLeft:'10px', textAlign:'left'}}>Waived Off</div>:
+                    <div style={{marginLeft:'10px', textAlign:'left'}}> Paid</div>:
+                    <div style={{marginLeft:'10px', textAlign:'left'}}> Pending</div>*/}
+
+                    <div style={{marginLeft:'10px', textAlign:'left'}}>{payment.status}</div>
+
+                  </div>
+                ))}
+         </div>
         }
-        </>
+        </>)
       ):(
         <div style={{display:'flex', marginTop:'50px',marginBottom:'50px', marginLeft:'100px', width:'80%'}}>
         <div className={classes.control}>
@@ -409,28 +490,40 @@ const {
       )}
       </>
     {
-        (selectedMonth && amountDue!==0 && (studentId || selectedStudent)) ?
+        (selectedMonth && amountDue!==0 && (studentId || selectedStudent)) &&
        (<div style={{marginTop:'100px', marginBottom:'50px'}}>
-         <button style={{ marginRight:'10px'}} className={classes.button}  onClick={resetHandler}>
+         <button type="button" style={{ marginRight:'10px'}} className={classes.button}  onClick={resetHandler}>
            Cancel
          </button>
          <button className={classes.button} type="submit" >
            {isSubmitting? 'Submitting': 'Proceed'}
          </button>
-         {formData.reminder_enabled ? <div style={{textAlign:'right', marginTop:'30px', marginRight:'30px'}}><NavLink style={{textDecoration:'none'}} onClick={reminderHandler}>
-          Disable Reminders </NavLink></div> :
-          <div style={{textAlign:'right', marginTop:'30px', marginRight:'30px'}}><NavLink style={{textDecoration:'none'}} onClick={reminderHandler}>
-          Enable Reminders </NavLink></div> }
-        </div>):
 
-             <div style={{textAlign:'right', marginBottom:'10px', marginTop:'100px', marginRight:'20px'}}><NavLink style={{textDecoration:'none'}} onClick={resetHandler}><span>Back</span></NavLink></div>
+        </div>)}
 
-    }
 
+    <div style={{ display: "flex", justifyContent: "space-between",
+    marginTop:'30px',marginBottom:'30px', marginRight:'10px', marginLeft:'10px'}}>
+
+        {!isReminder && (studentId || selectedStudent) && (formData.reminder_enabled ?
+             (<><div><NavLink style={{textDecoration:'none'}} onClick={reminderHandler}>
+                  Disable Reminders
+             </NavLink></div>
+             <div><NavLink style={{textDecoration:'none'}}
+                     to={`/feesPayment/reminder/${selectedStudent || studentId}`}>Send Reminder
+             </NavLink></div></>)
+            :
+                  <div><NavLink style={{textDecoration:'none'}}
+                  onClick={reminderHandler}>Enable Reminders </NavLink></div>
+
+        )}
+
+     </div>
      </form>
     </div>
-
-   )
+    <div style={{textAlign:'right',marginRight:'150px'}}>
+         <NavLink style={{textDecoration:'none'}} onClick={resetHandler}><span>Back</span></NavLink></div>
+   </>)
 
 }
 export default FeesPaymentForm

@@ -5,15 +5,15 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-bottom: 8px;
+  width:100%;
 }
 
 .desc {
   flex: 1;
-  width: 200px; /* Fixed width for the name */
+  width: 400px; /* Fixed width for the name */
   font-size: 18px;
   color: #8b008b;
   text-align: left;
-  margin-left: 20px;
   margin-right: 50px; /* Space between name and buttons */
   text-decoration: none;
 }
@@ -21,6 +21,8 @@
 .actionButtons {
   display: flex;
   gap: 50px;
+  height:30px;
+  margin-left:50px;
 }
 
 .trashIcon,
@@ -37,8 +39,36 @@
   font-size: 14px;
 }
 
+.updateFees:disabled {
+    background-color: #ccc; /* Gray background */
+    color: #666; /* Lighter text color */
+    cursor: not-allowed; /* Cursor feedback */
+    opacity: 0.7; /* Slight transparency */
+}
+
+.actions {
+  width: 120px; /* Fixed width for buttons */
+  height:30px;
+  padding: 6px;
+  border: 1px solid #8b008b;
+  border-radius: 4px;
+  color: #f0f0f0;
+  background-color: #850e57;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+}
+
 .trashIcon:hover,
-.updateFees:hover {
-  background-color: #8b008b;
+.updateFees:not(:disabled):hover,
+.actions:hover{
+  background-color: #FFB6C1;
   color: white;
+  height:30px;
+}
+
+.actions:hover{
+  background-color: #f0f0f0;
+  color: #850e57;
 }

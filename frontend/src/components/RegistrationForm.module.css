@@ -108,5 +108,8 @@ input[type="file"] {
   }
 
 
-
+form .errorMsg{
+    color:red;
+    margin-left:10px;
+}
 

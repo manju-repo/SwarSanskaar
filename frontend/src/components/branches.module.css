@@ -1,0 +1,51 @@
+/* Container styles for the list */
+.branchesContainer {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+/* Styling individual branch boxes */
+.branch {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffe6f0; /* Soft light pink */
+  border: 1px solid #ffccd5; /* Slightly darker pink for the border */
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover animations */
+  white-space: nowrap;
+}
+
+/* Styling links inside the branch boxes */
+.branch a {
+  text-decoration: none;
+  color:#d6336c;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Hover effect */
+.branch:hover {
+  transform: translateY(-5px); /* Moves box slightly up on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhances shadow on hover */
+}
+
+/* Link hover color */
+.branch a:hover {
+  color: #a8284d; /* Slightly darker pink for the text on hover */
+}
+
+/* Overall background for the homepage */
+.pageBackground {
+  background-color: #fff0f6; /* Very light pink */
+  min-height: 100vh;
+  padding: 20px 0;
+}

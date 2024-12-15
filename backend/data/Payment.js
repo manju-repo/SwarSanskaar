@@ -8,14 +8,14 @@ const createPayment = async () => {
         const currentDate = new Date();
         const students = await Student.find();
 
-        for (const student of students) {
+        /*for (const student of students) {
             const newPayment = new Payment({
                 student_id: student._id,
                 amount_due: student.monthly_fees
             });
             console.log("entry for ",student._id);
             await newPayment.save();
-        }
+        }*/
         console.log('rows created');
     }
     catch(error){
@@ -33,25 +33,9 @@ const feesPayment=async(req,res,next)=>{
     const {studentId, amount,mode,paymentDate, monthNumber}=req.body;
     console.log(studentId, amount,mode,paymentDate,monthNumber);
     let existingUser;
-    try{
-        existingUser=await Payment.findOne({student_id:studentId});
-        existingUser.date_of_payment=paymentDate;
-        existingUser.amount_paid=amount;
-        existingUser.payment_mode=mode;
-        await existingUser.save();
-        //res.json({success:true, student:existingUser});
 
-    }catch(err){
-        const error= new Error("Payment failed..User not registered");
-        console.log(err);
-        return next(error);
-    }
-
-    console.log("in Student fees payment");
-
-
-            //let existingUser;
-            try{
+        try{
+                //Update payments array in Student table
                 existingUser=await Student.findOne({_id:studentId});
                 if (!existingUser) {
                      const error = new Error("Student not found.");
@@ -59,21 +43,43 @@ const feesPayment=async(req,res,next)=>{
                  }
                 // Find the payment entry for the specified month
                const paymentEntry = existingUser.payments.find(p => p.month === monthNumber);
-console.log("found month entry");
                if (!paymentEntry) {
                     console.log("no month entry");
-                   const error = new Error("Payment entry for the specified month not found.");
+                   const error = new Error("Unable to process Fees, try later!");
                    return next(error);
                }
 
                // Calculate the updated amounts
                 const remainingDue = paymentEntry.amount_due - amount;
+                const amountDue =  Math.max(0, remainingDue); // Set amount_due to 0 if paid in full
                 paymentEntry.amount_paid = (Number(paymentEntry.amount_paid) || 0) + Number(amount);
-                paymentEntry.amount_due = Math.max(0, remainingDue); // Set amount_due to 0 if paid in full
+                paymentEntry.amount_due = amountDue;
+                if(amountDue===0)
+                    paymentEntry.status='paid';
+                else
+                    paymentEntry.status='pending';
 
                 existingUser.markModified("payments");
 
                 await existingUser.save();
+
+                //Entry in Payment Table
+                let paymentStatus;
+                if(amountDue===0)
+                    paymentStatus="paid";
+                else
+                    paymentStatus="pending";
+
+                const newPayment = new Payment({
+                                student_id: studentId,
+                                amount_due: amountDue,
+                                amount_paid:amount,
+                                payment_mode:mode,
+                                date_of_payment:paymentDate,
+                                payment_status:paymentStatus
+                            });
+                            console.log("Payment entry for ",studentId);
+                            await newPayment.save();
                 res.json({success:true});
 
             }catch(err){
@@ -81,6 +87,6 @@ console.log("found month entry");
                 console.log(err);
                 return next(error);
             }
-}
+    }
 
     exports.feesPayment=feesPayment;

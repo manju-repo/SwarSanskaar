@@ -7,18 +7,29 @@ function BranchStudents() {
     const [students, setStudents] = useState([]);
     const [branchName, setBranchName] = useState();
     const {branchId} = useParams();
+    const [searchParams] = useSearchParams();
+    const query1 = searchParams.get('query1');
 
     const fetchStudents=useCallback(async()=>{
-        try{
+    try{
+        const response = await fetch(`http://localhost:5000/students/branch/${branchId}`);
+        const {students} = await response.json();
+        console.log(students);
+        setStudents(students);
+        let currentStudents = students;
 
-            const response = await fetch(`http://localhost:5000/students/branch/${branchId}`);
-            const {students} = await response.json();
-            console.log(students);
-            setStudents(students);
-          }catch(error){
-            console.log(error.message);
-           }
-        },[branchId]);
+        if(students && query1){
+            const keywords = query1.split(/\s+/);
+            currentStudents = currentStudents.filter(item =>
+            keywords.every(keyword => item?.name?.toLowerCase().includes(keyword.toLowerCase()))
+            );
+        }
+        setStudents(currentStudents);
+      }
+      catch(error){
+        console.log(error.message);
+      }
+    },[branchId, query1]);
 
     const fetchBranchName=useCallback(async()=>{
      try{
@@ -26,14 +37,16 @@ function BranchStudents() {
         const {branch} = await response.json();
         setBranchName(branch.branch_name);
 
-     }catch(error){
+     }
+     catch(error){
         console.log(error.message);
        }
     },[branchId]);
+
     useEffect(() => {
         fetchBranchName();
         fetchStudents();
-  },[branchId]);
+  },[branchId, query1]);
 
 
 

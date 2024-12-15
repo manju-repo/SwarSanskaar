@@ -1,13 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+/* HomePage.module.css */
 
-.centeredContainer {
-  display: flex;
-  justify-content: center;  /* Horizontally center */
-  align-items: center;      /* Vertically center */
-  height: 100%;            /* Full height of the viewport */
+.backgroundContainer {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100vh; /* Full screen height */
+    width: 100vw;  /* Full screen width */
+    position: relative;
+    z-index: 0;
 }
 
-img {
-  max-width: 100%;          /* Optional: adjust image size */
-  height: auto;
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent overlay */
+    z-index: 1;
 }
+
+.overlay::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px; /* Adjust height */
+    background-color: white; /* Or use a matching background */
+    z-index: 2;
+}
+
+
+
+.contentContainer {
+    position: relative;
+    z-index: 2; /* Content in front of the overlay */
+    color: black; /* Ensure text is visible */
+}
+

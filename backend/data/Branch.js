@@ -4,8 +4,8 @@ const Branch = require("../models/Branch");
 const getBranches=async(req,res,next)=>{
     let students;
     try{
-        branches=await Branch.find({},'-password');
-        if (!branches) {
+        branches=await Branch.find({}).sort({branch_name:1});
+        if (!branches || branches.length === 0) {
             throw new NotFoundError('Could not find any data.');
          }
         res.json({ branches: branches.map(branch => branch.toObject({ getters: true })) });
@@ -32,7 +32,6 @@ const getBranch=async(req,res,next)=>{
          console.log(error);
          return next(error);
     }
-
 }
 
 const create=async(req,res,next)=>{
@@ -62,14 +61,13 @@ const id=req.params.id;
    try{
         const updatedBranch=await Branch.findByIdAndUpdate(id,{branch_name:branch_name, address:address},
         { new: true });
-        res.status(201).json({success:true, message:'branch updated', branch:updatedBranch});
+        res.json({success:true, message:'branch updated', branch:updatedBranch});
     }
     catch(error){
         console.log(error.message);
         return next(error);
     }
 }
-
 
 
     exports.getBranches=getBranches;

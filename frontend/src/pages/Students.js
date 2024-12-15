@@ -38,7 +38,6 @@ function Students() {
 
             let currentStudents = studentsWithBranches;
 
-
             if(students && query1){
                 const keywords = query1.split(/\s+/);
                 currentStudents = currentStudents.filter(item =>

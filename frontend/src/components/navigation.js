@@ -1,5 +1,5 @@
 import {useEffect, useState, useContext, useRef} from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import './navigation.css';
 import Drawer from './Drawer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -8,6 +8,7 @@ function Navigation() {
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const [branches, setBranches] = useState([]);
     const [selectedBranch, setSelectedBranch] = useState(null); // State for branch selection
+          const location = useLocation();
 
     const inputRef1 = useRef();
     const inputRef2 = useRef();
@@ -38,7 +39,10 @@ const handleBranchChange = (e) => {
   const handleSearch=(e)=>{
       e.preventDefault();
       const query1 = inputRef1.current.value; // Get the value from the input field
-      navigate(`/students?query1=${query1}`);
+      if(location.pathname.includes('/student/defaulters') || location.pathname.includes('/branches'))
+            navigate(`${location.pathname}?query1=${query1}`);
+       else
+            navigate(`/students?query1=${query1}`);
     }
 
      const handleKeyPress = (e) => {

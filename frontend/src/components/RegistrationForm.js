@@ -14,6 +14,7 @@ const RegistrationForm=({onSubmit})=>{
     const [imageName, setImageName] = useState('Choose Image...');
     const [branches, setBranches] = useState([]); // State to hold branch names
     const [selectedBranch, setSelectedBranch] = useState(''); // State to store selected branchId
+    const [branchError, setBranchError] = useState("");
 
 
 const {
@@ -82,6 +83,11 @@ const {
 
 
   const submitHandler =async (data) => {
+   if (!selectedBranch) {
+      setBranchError("Please select a branch.");
+      return; // Stop submission if validation fails
+    }
+    setBranchError(""); // Clear error if validation passes
     data.branch_id = selectedBranch;
     console.log(data);
     let response;
@@ -149,6 +155,10 @@ const {
               type="text"
               name="phone"
                {...register("phone", { required: "Phone Number is required.",
+               pattern: {
+                            value: /^[0-9]{10}$/,
+                            message: "Please enter a valid 10-digit phone number"
+                       },
                 minLength: {
                               value: 10,
                               message: "Please enter a valid 10-digit phone number"
@@ -182,6 +192,7 @@ const {
               style={{marginTop:'7px', height:'35px'}}
                 id="branch"
                 name="branch" value={selectedBranch} onChange={handleBranchChange}
+
               >
                 <option value="">Select a Branch</option>
                 {branches && branches.map((branch) => (
@@ -190,7 +201,7 @@ const {
                   </option>
                 ))}
               </select>
-              {errors.branch && <p className="errorMsg">{errors.branch.message}</p>}
+              {branchError && <p className="errorMsg">{branchError}</p>}
             </div>
 
             <div className={classes.control}>
